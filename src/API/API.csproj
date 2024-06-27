@@ -1,0 +1,32 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="7.0.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
+
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Core\Core.csproj" />
+    <ProjectReference Include="..\Application\Application.csproj" />
+
+  </ItemGroup>
+
+
+  <Target Name="PublishAngular" AfterTargets="ComputeFilesToPublish">
+    <Exec Command="npm install" WorkingDirectory="$(ProjectDir)Client" />
+    <Exec Command="npm run build -- --prod" WorkingDirectory="$(ProjectDir)Client" />
+    <ItemGroup>
+      <DistFiles Include="$(ProjectDir)Client/my-angular-app/dist/**" />
+      <ResolvedFileToPublish Include="@(DistFiles->'%(FullPath)')">
+        <RelativePath>Client/my-angular-app/dist/%(RecursiveDir)%(Filename)%(Extension)</RelativePath>
+        <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      </ResolvedFileToPublish>
+    </ItemGroup>
+  </Target>
+
+</Project>
