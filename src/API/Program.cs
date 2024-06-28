@@ -31,6 +31,17 @@ builder.Services.AddScoped<IWeatherRepository, WeatherRepository>();
 builder.Services.AddScoped<IWeatherService, WeatherService>();
 builder.Services.AddSingleton(builder.Configuration);
 builder.Services.AddMediatR(typeof(AddToHistoryCommandHandler).Assembly);
+builder.Services.AddCors(
+    options =>
+    {
+        options.AddDefaultPolicy(
+            builder =>
+            {
+                builder.AllowAnyOrigin()
+                    .AllowAnyMethod()
+                    .AllowAnyHeader();
+            });
+    });
 
 // Configure DbContext
 builder.Services.AddDbContext<WeatherDbContext>(options => 
@@ -61,7 +72,7 @@ else
 }
 
 app.UseHttpsRedirection();
-
+app.UseCors();
 // app.UseSpaStaticFiles();
 app.UseRouting();
 app.MapControllers();

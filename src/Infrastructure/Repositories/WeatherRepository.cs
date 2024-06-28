@@ -40,7 +40,7 @@ public class WeatherRepository : IWeatherRepository
     {
         var client = _httpClientFactory.CreateClient("WeatherAPI");
         var apiKey = _configuration["WeatherApi:ApiKey"];
-        var response = await client.GetAsync($"/data/2.5/weather?q={city}&appid={apiKey}");
+        var response = await client.GetAsync($"/data/2.5/weather?q={city}&appid={apiKey}&units=metric");
 
         if (response.IsSuccessStatusCode)
         {
