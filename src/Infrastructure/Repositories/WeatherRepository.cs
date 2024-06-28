@@ -32,7 +32,8 @@ public class WeatherRepository : IWeatherRepository
 
     public async Task AddToHistory(CityWeather search)
     {
-        await _context.CityWeathers.AddAsync(search);
+        _context.CityWeathers.Add(search);
+        await _context.SaveChangesAsync();
     }
 
     public async Task<CityWeather> GetAsync(string city)

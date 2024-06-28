@@ -1,6 +1,5 @@
-﻿using Core.Entities;
-
-namespace Core.Interfaces;
+﻿namespace Core.Interfaces;
+using Core.Entities;
 
 public interface IWeatherRepository
 {

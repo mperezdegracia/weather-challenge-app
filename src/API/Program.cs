@@ -1,15 +1,12 @@
 using System;
-using System.Net.Http;
 using Application;
 using Application.Commands.CityWeather;
-using Application.Queries.CityWeather;
 using Core.Interfaces;
 using Infrastructure.Context;
 using Infrastructure.Repositories;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -30,19 +27,18 @@ builder.Services.AddHttpClient("WeatherAPI", client =>
     client.BaseAddress = new Uri("https://api.openweathermap.org");
     client.DefaultRequestHeaders.Add("Accept", "application/json");
 });
-
-// MediaTr
-builder.Services.AddMediatR(typeof(AddToHistoryCommand).Assembly);
-
-
-
-// Configure DbContext
-builder.Services.AddDbContext<WeatherDbContext>(options => 
-options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
-
 builder.Services.AddScoped<IWeatherRepository, WeatherRepository>();
 builder.Services.AddScoped<IWeatherService, WeatherService>();
 builder.Services.AddSingleton(builder.Configuration);
+builder.Services.AddMediatR(typeof(AddToHistoryCommandHandler).Assembly);
+
+// Configure DbContext
+builder.Services.AddDbContext<WeatherDbContext>(options => 
+options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"), options =>
+{
+    options.EnableRetryOnFailure(); // Habilitar reintentos en caso de fallo
+    options.MigrationsAssembly("Infrastructure");
+}));
 
 // Add Angular files to be served by the app
 builder.Services.AddSpaStaticFiles(configuration =>

@@ -1,7 +1,5 @@
-﻿using System;
-using System.Threading.Tasks;
-using Application.Queries.CityWeather;
-using MediatR;
+﻿using System.Threading.Tasks;
+using Core.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers;
@@ -10,12 +8,12 @@ namespace API.Controllers;
 [Route("api/[controller]")]
 public class WeatherController : ControllerBase
 {
-    private readonly IMediator _mediator;
+     private readonly IWeatherService _weatherService;
 
 
-    public WeatherController(IMediator mediator)
+    public WeatherController(IWeatherService weatherService)
     {
-        _mediator = mediator;
+        _weatherService = weatherService;
     }
 
 
@@ -23,7 +21,7 @@ public class WeatherController : ControllerBase
 
     public async Task<IActionResult> GetWeather(string city)
     {
-        var result = await _mediator.Send(new GetCityWeatherQuery(city));
+        var result = await _weatherService.GetAsync(city);
         return Ok(result);
     }
 
@@ -31,7 +29,7 @@ public class WeatherController : ControllerBase
 
     public async Task<IActionResult> GetHistory()
     {
-        var result = await _mediator.Send(new GetHistoryQuery());
+        var result = await _weatherService.GetHistoryAsync();
         return Ok(result);
     }
 
