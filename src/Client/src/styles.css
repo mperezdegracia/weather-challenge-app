@@ -3,3 +3,12 @@
 @import "primeng/resources/primeng.css";
 @import "primeicons/primeicons.css";
 @import 'primeflex/primeflex.css';
+
+.container {
+    width: 90%;
+}
+
+
+.results {
+    margin-top: 20px;
+}

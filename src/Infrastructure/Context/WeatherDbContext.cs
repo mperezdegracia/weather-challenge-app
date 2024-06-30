@@ -9,6 +9,16 @@ public class WeatherDbContext : DbContext
     {
     }
 
+    public DbSet<City> Cities { get; set; }
     public DbSet<CityWeather> CityWeathers { get; set; }
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        modelBuilder.Entity<City>()
+            .HasIndex(c => new { c.Name, c.Country })
+            .IsUnique();
+    }
+
+
 
 }

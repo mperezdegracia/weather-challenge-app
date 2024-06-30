@@ -5,7 +5,7 @@ VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "API", "src\API\API.csproj", "{EEA3B923-0A09-4844-9E7B-7E58CB0D3947}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core", "\src\Core\Core.csproj", "{2DA9DB3F-162A-414C-973D-1D5AFDDE8EB9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core", "src\Core\Core.csproj", "{2DA9DB3F-162A-414C-973D-1D5AFDDE8EB9}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure", "src\Infrastructure\Infrastructure.csproj", "{DFA61272-FE73-48DD-8FD6-B8A2A8AC47BF}"
 EndProject

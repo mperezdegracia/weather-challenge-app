@@ -29,4 +29,5 @@ export class WeatherService {
     return this.http.get<CityWeather[]>(`${this.apiUrl}/history`);  
   }
 
+
 }

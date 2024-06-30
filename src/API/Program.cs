@@ -1,5 +1,6 @@
 using System;
 using Application;
+using Application.Commands.City;
 using Application.Commands.CityWeather;
 using Core.Interfaces;
 using Infrastructure.Context;
@@ -28,21 +29,26 @@ builder.Services.AddHttpClient("WeatherAPI", client =>
     client.DefaultRequestHeaders.Add("Accept", "application/json");
 });
 builder.Services.AddScoped<IWeatherRepository, WeatherRepository>();
+builder.Services.AddScoped<ICityRepository, CityRepository>();
+builder.Services.AddScoped<ICityService, CityService>();
 builder.Services.AddScoped<IWeatherService, WeatherService>();
 builder.Services.AddSingleton(builder.Configuration);
 builder.Services.AddMediatR(typeof(AddToHistoryCommandHandler).Assembly);
+builder.Services.AddMediatR(typeof(AddCommandHandler).Assembly);
+builder.Services.AddMediatR(typeof(RemoveCommandHandler).Assembly);
+
 builder.Services.AddCors(
     options =>
     {
         options.AddDefaultPolicy(
             builder =>
             {
-                builder.AllowAnyOrigin()
+                builder.AllowAnyOrigin() 
                     .AllowAnyMethod()
                     .AllowAnyHeader();
             });
     });
-
+ // we can change this to only allow calls from Frontend
 // Configure DbContext
 builder.Services.AddDbContext<WeatherDbContext>(options => 
 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"), options =>
