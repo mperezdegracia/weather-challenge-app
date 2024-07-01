@@ -2,6 +2,7 @@
 using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
+using API.Dtos;
 using Core.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -26,22 +27,21 @@ public class CityController : ControllerBase
         return Ok(result);
     }
 
-    [HttpPost("{city}")]
+    [HttpPost]
 
-    public async Task<IActionResult> AddCity(string city)
+    public async Task<IActionResult> AddCity([FromBody]CityDto city)
     {
-
         //  TODO: implement special Exceptions and handle HTTP responses
         try
         {
-            await _cityService.AddAsync(city);
+            await _cityService.AddAsync(city.Name);
         }
         catch (Exception e)
         {
 
             return BadRequest(e.Message);
         }
-        return Ok("City added successfully.");
+        return Ok(new { message = "City added successfully." });
     }
 
     [HttpDelete("{id}")]

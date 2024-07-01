@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 
 interface City {
   id: number;
-  city: string;
+  name: string;
   country: string;
 
 }
@@ -25,8 +25,8 @@ export class CityService {
     return this.http.get<City[]>(`${this.apiUrl}`);
   }
 
-  add(city: string, country: string): Observable<any> {
-    return this.http.post(`${this.apiUrl}`, { name: city, country });
+  add(city: string): Observable<any> {
+    return this.http.post(`${this.apiUrl}`, {Name: city});
   }
 
   remove(id: number): Observable<any> {

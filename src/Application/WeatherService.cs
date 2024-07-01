@@ -20,13 +20,18 @@ public class WeatherService : IWeatherService
         await _mediator.Send(command);
     }
 
+    public async Task<CityWeather> GetAndSaveAsync(string city)
+    {
+        var weather = await GetAsync(city);
+        await AddToHistoryAsync(weather);
+
+        return weather;
+    }
+
     public async Task<CityWeather> GetAsync(string city)
     {
         var query = new GetCityWeatherQuery(city);
         var weather = await _mediator.Send(query);
-
-        // Add the CityWeather to history
-        await AddToHistoryAsync(weather);
 
         return weather;
     }

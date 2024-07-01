@@ -57,27 +57,7 @@ export class WeatherComponent  implements OnInit {
       }
     );
   }
-  addCity(city: string, country: string): void {
-    this.cityService.add(city, country).subscribe(
-      () => {
-        this.loadCities(); // Refresh cities list after addition
-      },
-      error => {
-        console.error('Error adding city:', error);
-      }
-    );
-  }
 
-  removeCity(id: number): void {
-    this.cityService.remove(id).subscribe(
-      () => {
-        this.loadCities(); // Refresh cities list after removal
-      },
-      error => {
-        console.error('Error removing city:', error);
-      }
-    );
-  }
 
   load(): void {
     const city = this.formGroup.get('selectedCity')?.value;

@@ -21,7 +21,7 @@ public class WeatherController : ControllerBase
 
     public async Task<IActionResult> GetWeather(string city)
     {
-        var result = await _weatherService.GetAsync(city);
+        var result = await _weatherService.GetAndSaveAsync(city);
         return Ok(result);
     }
 
