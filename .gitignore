@@ -22,7 +22,7 @@ Thumbs.db
 *.exe
 *.pdb
 *.dll.config
-*.json
+# *.json
 
 # User-specific files
 *.suo
